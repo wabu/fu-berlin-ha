@@ -1,0 +1,132 @@
+\include {headerscript}
+\include {header}
+
+\begin{document}
+\title{Hoehere Algorithmik}
+\maketitle
+
+\tableofcontents
+
+\chapter{Intro}
+\section{Vorraussetzungen}
+\begin{itemize}
+\item Datenstrukturen\\
+	Arrays, Listen, binaere Baeume, B-Baueme, Hashing
+\item Sortierverfahren\\
+\item Graphenalgorithmen\\
+	bfs, dfs, shortest path, minimal spanning
+\end{itemize}
+
+\section{Inhalt}
+\begin{itemize}
+\item grundlegende Begriffe: Algorithmen, Effizienz
+\item Paradigmen zum Algorithmenentwurf
+\item fortgeschrittene Datenstrukturen
+\item Graphenalgorithmen 
+	\begin{itemize}
+	\item Netzwerkfluss
+	\item Matching
+	\end{itemize}
+\item String-Matching
+\item NP-Vollstaendigkeit
+\item Aproximationsalgorithmen
+\item Alogrithmische Probleme
+	\begin{itemize}
+	\item Matr. Multiplikation
+	\item Zahlen-Multiplikation
+	\item Kryptosysteme
+	\item DFT
+	\end{itemize}
+\item Komplexitaetstheorie
+\end{itemize}
+
+
+
+
+
+\chapter{Algorithmen, Effizienz, Berechnungsmodelle}
+
+\paragraph{Algorrithmus:}
+	Methode zur Loesung eines Problems
+	\\mathematische Formalisierung: Turing-Maschine, RegisterMaschine
+
+\paragraph{Effizienz:}
+	im Verbrauch von Ressourcen (Zeit, Platz)
+
+\paragraph{Entwurf:}
+	von Alogrithmen, schon Effizienzbetrachtung
+
+\section{Beispile fuer Sortieralgorithmen}
+
+\paragraph{Gegeben} Folge $S$ von Elementen $a_1, a_2, \cdots, a_n$ eines
+linear geordneten Universums
+\paragraph{Berechne} die Folge S aufsteigend geordnet
+
+\subsection{Bogosort}
+	\paragraph{Analyse}
+	es gibt $n!$ Permutationen, fuer jede $n-1$ Vergleche,
+	insgesamt also $(n-1)n!$ Vergleiche im schlechtesten Fall,
+	$\frac{1}{n}(n-1)n!$ im Mittel.
+\subsection{Selectionsort}
+	\paragraph{Analyse}
+	$\sum_{i=1}^{n-1} i = \frac{n(n-1)}{2}$
+\subsection{Mergesort}
+	\paragraph{Alalyse}
+	$C(1) = 0$;
+	$C(n)\leq 2 C(\frac{n}{2}) + n \leq
+	 \leq 4 C(\frac{n}{4}) + n + n 
+	 \leq 2^k C(\frac{n}{2^k} + kn$ wobei $k=\log n$, also
+	werden $O(n\log(n))$ Vergleiche benoetigt
+\subsection{Quicksort}
+	im Durchschnitt: $O(n) = n \log n$
+\subsection{montecarlosort}
+
+\paragraph{Lehre}
+\begin{itemize}
+\item Analyse sehr wichtig
+\item Effizienz berechenbar ohne implementierung (Analyse)
+\item 1. Designkonzept: Dived and Conquer
+\item es gibt Algorithmen, die den Zufall zu Hilfe nehmen
+	(probabilistische Algorithmen)
+	\begin{itemize}
+	\item Las-Vegas (ergebnis sicher, laufzeit unsicher)
+	\item Monte-Carlo (ergebnis unsicher)
+	\end{itemize}
+\end{itemize}
+
+\section{Berechnungsmodelle}
+math. Modell fuer Rechner, um den begriff berechenabr, laufzeit und paltzbedarf
+exakt definerien zu koennen.
+
+\subsection{Turingmachines}
+\subsection{RegisterMashiene}
+	\begin{itemize}
+	\item $A := B op C$ (op: +-*/)
+	\item $A := B$
+	\item $(A)$ (ref)
+	\item $\text{goto} L$
+	\item $\text{ggz}  B,L$
+	\item $\text{halt}$
+	\end{itemize}
+\paragraph{Berechnebarkeit}
+\begin{itemize}
+\item Entspricht Zeit und Platz auf realem Rechner
+\item dort alledings nur beschraenkt grosse Zahlen darstellbar
+\end{itemize}
+
+\paragraph{Einheitskostemass}
+\subparagraph{Laufzeit}
+Anzahl der Schritte der RM. bei dieser
+Eingabe, bis sie haelt.
+
+\subparagraph{Platzbedarf}
+Anzal der Benutzten Register
+
+\paragraph{Logarithmisches Kostenmass (LKM)}
+\subparagraph{Laufzeit}
+Laufzeit einer op haengt von Summer der Laengern der
+Binaerdarstellung der benutzten Zahlen ab.
+
+\subparagraph{Platzbedarf}
+
+\end{document}
