@@ -1,0 +1,48 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{2}
+
+\begin{document}
+\section*{Aufgabe 1}
+\begin{eqnarray}
+&& R_0 = n\\
+&& R_1 = 1\\
+&& GLEZ\ R_3 \text{ End} \text{ // if $n==0$ return 1}\\
+&& R_1 = 2\\
+\text{Loop:}&&\\
+    && R_3 = R_2 - 1\\
+    && GEZ\ R_3 \text{ End} \text{ // if $n==1$ return $r_1$}\\
+    && R_3 = R_2 / 2 \\
+    && R_3 = R_3 \cdot 2 \\
+    && R_3 = R_2 - R_3 \text{ // $r_3 = r_2 \mod 2$}\\
+    && GEZ\ R_3 \text{ Quad} \text{ // if $r_3 \neq 0$ }\\
+\text{Mul:}&& \text{ // then }\\
+    && R_1 = R_1 \cdot 2\\
+    && R_0 = R_0 - 1 \\
+    && GOTO \text{ Loop}\\
+\text{Quad:}&& \text{ // else }\\
+    && R_1 = R_1 \cdot 2\\
+    && R_0 = R_0 / 2\\
+    && GOTO \text{ Loop}\\
+\text{End:}&&\\
+&& HALT
+\end{eqnarray}
+
+\begin{enumerate}[(a)]
+\item
+
+\begin{tabular}[h]{l|lll}
+Zeile & Kosten & \# & Gesamt\\\hline
+1-4  &  4 & 1 & 4\\
+6-11 &  6 & $\log_2 n$ & 6\\
+\end{tabular}
+\end{enumerate}
+
+\section*{Aufgabe 2}
+
+\section*{Aufgabe 3}
+
+\end{document}
