@@ -10,15 +10,15 @@
 \begin{eqnarray}
 && R_0 = n\\
 && R_1 = 1\\
-&& GLEZ\ R_3 \text{ End} \text{ // if $n==0$ return 1}\\
+&& GLEZ\ R_0 \text{ End} \text{ // if $n==0$ return 1}\\
 && R_1 = 2\\
 \text{Loop:}&&\\
-    && R_3 = R_2 - 1\\
-    && GEZ\ R_3 \text{ End} \text{ // if $n==1$ return $r_1$}\\
-    && R_3 = R_2 / 2 \\
-    && R_3 = R_3 \cdot 2 \\
-    && R_3 = R_2 - R_3 \text{ // $r_3 = r_2 \mod 2$}\\
-    && GEZ\ R_3 \text{ Quad} \text{ // if $r_3 \neq 0$ }\\
+    && R_2 = R_0 - 1\\
+    && GEZ\ R_2 \text{ End} \text{ // if $n==1$ return $r_1$}\\
+    && R_2 = R_0 / 2 \\
+    && R_2 = R_2 \cdot 2 \\
+    && R_2 = R_0 - R_2 \text{ // $r_2 = n \mod 2$}\\
+    && GEZ\ R_2 \text{ Quad} \text{ // if $r_2 \neq 0$ }\\
 \text{Mul:}&& \text{ // then }\\
     && R_1 = R_1 \cdot 2\\
     && R_0 = R_0 - 1 \\
@@ -32,17 +32,159 @@
 \end{eqnarray}
 
 \begin{enumerate}[(a)]
-\item
+\item \ 
 
 \begin{tabular}[h]{l|lll}
 Zeile & Kosten & \# & Gesamt\\\hline
 1-4  &  4 & 1 & 4\\
-6-11 &  6 & $\log_2 n$ & 6\\
+6-11 &  6 & $\lceil \log_2 n \rceil$ & $6 \cdot \lceil \log_2 n \rceil$ \\
+13-15/17-19 &  2 & $\lceil \log_2 n \rceil$ & $2 \cdot \lceil \log_2 n \rceil$ \\\hline
+&&& $4+8\cdot \lceil \log_2 n \rceil$
 \end{tabular}
+
+\item
+Kosten bei $i$-tem Durchlauf durch Quad, $j$-tem Durchlauf durch Mul:
+Im worst-case wird der Mul-Teil genauso oft wie der Quad-Teil ausgefuert,
+im best-case gar nicht. Da die Kosten der Mul- und Quad-Abschnitte die gleiche Laufzeit haben,
+ist im worst-case die Laufzeit hoechstens doppelte so hoch wie im best-case.
+Es recht also den best-case zu Betrachten um das asymtotische Verhalten zu bestimmen:
+
+\begin{tabular}[h]{l|lll}
+Zeile & Kosten & \# & Gesamt\\\hline
+1 & 1 + $\log n$ & 1 & 1 + $\log n$\\
+2 & 1 + 1 & 1 & 2\\
+3 & $1 + \log n$ & 1 & $1 + \log n$\\
+4 & 1 + 1 & 1 & 2 \\
+6 & $1+1 + \log (n/2^i)$ & $\log n$\\
+7 & $1 + \log (n/2^i)$ & $\log n$\\
+8 & $1+1+\log (n/2^i)+1$ & $\log n$\\
+9 & $1+1+\log (n/2^{i-1})+1 $ & $\log n$\\
+10 & $1+1+\log (n/2^i)\cdot 2$ & $\log n$\\
+11 & $1 + \log (n/2^i) $ & $\log n$\\
+17 & $1+1 + \log (2^i) + 1 $ & $\log n$\\
+18 & $1+1 + \log (n/2^i) + 1 $ & $\log n$\\\hline
+\end{tabular}
+
+Die Gesamtkosten setzen sich aus $k \cdot \log (n/2^i)$ und $\log 2^i$ zusammen:
+\begin{eqnarray}
+T(n) &\leq& \sum_{i=1}^{\log n} k \cdot \log (n/2^i) + \log 2^i \\
+     &=& \sum_{i=1}^{\log n} k \cdot \log n - ki \cdot \log 2 + i \log 2 \\
+     &=& n \log n - (k-1) \cdot \log 2\cdot  \sum_{i=1}^{\log n} i \\
+     &=& n \log n - k' \cdot \frac{\log 2 \cdot (\log n - 1)}{n} \\
+\end{eqnarray}
+
+Die Laufzeit betraegt also $\Omega(n \log n)$
+
 \end{enumerate}
 
 \section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+\item 
+
+Zur Berechnung wird der Stack zuerst fuer den Aufruf von $Fib(n-1)$ aufgebaut und hat eine 
+Groesse von $O(n)$. Wird dannach durch die Abbruchbedinung ein Ergebniss nach oben gegeben und anschliesend $Fib(n-2)$ 
+berechnet, wird dadurch weniger Stack verbracht als durch die vorherige
+Berchnung. Also ist die Platzkomplexitaet insgesamt auch $O(n)$.
+
+\item
+
+\begin{description}
+\item[IA] $n=1, n=0$\\
+ \begin{equation}
+    T(1) = const \leq c \cdot T(\frac{1+\sqrt{5}}{2})
+ \end{equation}
+\item[IS] $n-1 \land n-2 \to n$\\
+    \begin{eqnarray}
+    T(n) &\leq& T(n-1) + T(n-2) \\
+         &=& c \cdot ( (\frac{1+\sqrt 5}{2})^{n-1} + (\frac{1+\sqrt 5}{2})^{n-2}) ) \\
+         &=& c \cdot ( (\frac{1+\sqrt 5}{2})^{n-2} \cdot (1 + (\frac{1+\sqrt 5}{2})^{n-2}) ) \\
+         &\leq& c \cdot (\frac{1+\sqrt 5}{2})^{n-1}
+    \end{eqnarray}
+\end{description}
+
+
+\item Durch dynamisches Programmieren kann eine lineare Laufzeit erreicht werden, 
+    da nun nur eine Iteration bis $n$ noetig ist.
+
+\begin{verbatim}
+fibs = new Array
+fibs[0] = 1
+fibs[1] = 1
+for i=2 to n do
+  fibs[i] = fibs[i-1]+fibs[i-2]
+return fibs[n-1]
+\end{verbatim}
+
+
+\item 
+Durch potenzieren wie in Aufgabe 1 kann auch Logaritmische Laufzeit errecht werden.
+\begin{verbatim}
+m = [1 1 ; 1 0 ]
+a = copy of m
+while x > 1
+  if x%2 == 0
+    a = a*a
+    x /= 2
+  else
+    a = a*m
+    x -= 1
+return a[0][0]
+\end{verbatim}
+\end{enumerate}
 
 \section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+\item 
+\begin{verbatim}
+min = -oo
+max = +oo
+for a in list
+  if (a < min)
+     min = a
+  elif (a > max)
+     max = a
+return min,max
+\end{verbatim}
+
+Da die Liste unsortiert ist, und auch sonst keine Annahmen über die Liste
+getroffen werden können, ist es lediglich möglich, das triviale Suchen nach dem
+Maximum und das triviale Suchen nach dem Minimum in einem Durchlauf
+zusammenführen.
+
+\item
+\begin{verbatim}
+int max = -oo
+int max' = -oo
+for a in list
+  if (a >= max)
+     max' = max
+     max = a
+return max,max'
+\end{verbatim}
+
+Hier gilt selbiges wie für 3a) es gibt keine Annahmen über die Liste. Damit
+lässt es sich nur mit einem doppelten trivialen Suchen nach dem Maximum in
+einem Durchgang lösen. Und zwar in dem man das erste Maximum benutzt um ein
+Maximum zu suchen, und wenn man ein neuen Wert findet der größer als das
+vorherige Maximum ist, das alte Maximum in max2 schiebt
+
+\item
+
+Zur Bestimmung einer unteren Schranke beim vergleichsbasierten Suchen, 
+kann zu einem Algorithmus der vergleichsbaum betrachtet werden.
+
+An dessen Blaettern steht die Position $i$ des gefundenen elements $a_i = b$.
+Da es $n$ verschidene solche Elemente gibt, muss dieser Baum $n$ Blaetter besitzen.
+Da der Vergleichsbaum ein Binaerbaum ist, muss dieser mindestens eine Hoehe von $log n$ besitzen,
+um $n$ Blaetter zu haben. Somit ist die untere Schranke $\Theta(n)$.
+
+Im Falle einer unsortierten Folge kann die Schranke besser bestimmt werden: 
+Man nehme an, es gaebe einen Algorithmus, der zu jeder Eingabe weniger als $n$ Vergleiche brauechte.
+Nun fixiert man die Eingabefolge $S$ und die Entscheidungen des Zufalls, falls es sich um einen randomisierten Algorithmuss
+handelt. Wenn dieser weniger als $n-1$ Vergleiche benoetigt, exisitert Element $a_s,a_t \in S$, die nicht
+betrachtet wurden. Laesst man den Algorithmus nun auf $S'$ mit $a_s' = \max S + 1$ und $a_t' = \max S + 2$ nach 
+$a_t$ suchen, kann dieser nicht Entschiden welches der beiden Elemente betrachtet werden soll.
+
+\end{enumerate}
 
 \end{document}
