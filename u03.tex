@@ -124,5 +124,46 @@
 \end{enumerate}
 
 \section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+\item
+
+Durch den Rekursiven Aufruf zum bestimmen des Medians wird $T(\lceil \frac{n}{k} \rceil)$ benoetigt.
+
+Die Grosse der Menge fuer den naechsten Rekursonsschritt ist kleiner als 
+\begin{eqnarray}
+|S'| &\leq& n - \frac{k+1}{2} \lfloor \frac{n}{2 k} \rfloor \\
+     &\leq& n - \frac{k+1}{2} \left( \frac{n}{2k}-1 \right) \\
+     &\leq& n - \frac{k+1}{4k} n + \frac{k+1}{2} \\
+     &\leq& \frac{3}{4}n - \frac{1}{4k} n + \frac{k+1}{2}
+\end{eqnarray}
+Fuer $n \geq 2k^2+2k$ gilt:
+\begin{eqnarray}
+     |S'| &\leq& \frac{3}{4}n
+\end{eqnarray}
+
+Somit ergibt sich 
+\begin{equation}
+T(n) = T\left( \lceil \frac{n}{k} \rceil \right) + T \left( \lfloor \frac{3}{4} n \rfloor  \right) + d \cdot n
+\end{equation}
+
+\item Fuer alle $k \geq 5$ ist die Laufzeit linear, da Lemma 2.4.2. gilt mit $\alpha \leq \frac{1}{5}$ und $\beta = \frac{3}{4}$ 
+
+\item $k=3$:
+
+\begin{eqnarray}
+T(n) &=& T\left( \frac{n}{3} \right) + T\left(\frac{3}{4} n\right) + d \cdot n \\
+     &=& T\left( \frac{n}{9} \right) + T\left( \frac{1}{4} n \right) + T\left( \frac{1}{4}n \right) + T\left( \frac{9}{16}n \right) 
+         + d n + \frac{1}{3} d n + \frac{3}{4} d n\\
+     &=& T\left( \frac{n}{9} \right) + 2 T\left( \frac{n}{4} \right) + T\left( \frac{9n}{16} \right) 
+         + \frac{25}{12} dn \\
+     &=& 
+         + \frac{1}{9} dn + \frac{1}{2} dn + \frac{9}{16} dn + \frac{25}{12} dn  \\
+     &=& \frac{496}{144}
+\end{eqnarray}
+
+<+ hm, vielleicht n log n vermuten und induktion \ldots +>
+
+
+\end{enumerate}
 
 \end{document}
