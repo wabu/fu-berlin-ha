@@ -1,0 +1,128 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{3}
+
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+\item $SELECT(k,S)$
+    \begin{enumerate}[1.]
+    \item Falls $S={a}$ return $a$
+    \item Sonst $a = MEDIAN(S)$
+    \item 
+    \begin{tabbing}
+    Teile $S$ in
+    \= $S_1$ (Elemente $<a$) \\
+    \> $S_2$ (Elemente $=a$) \\
+    \> $S_3$ (Elemente $>a$)
+    \end{tabbing}
+    \item Falls $|S_1| < k \leq |n - S_3|$ return $a$
+    \item Sonst falls $|S_1| \geq k$ return $SELECT(k,S_1)$
+    \item Sonst return $SELECT(k-(|S|-|S_3|), S_3)$
+    \end{enumerate}
+
+    \paragraph{Laufzeit} \ 
+
+    \begin{eqnarray}
+    T(1) &=& 1\\
+    T(n) &=& 2\cdot n + T(\frac{n}{2})\\
+         &=& 2\cdot n + n + T(\frac{n}{4})\\
+         &=& 2\cdot n + n + \frac{n}{2} + T(\frac{n}{8})\\
+         &=& 2\cdot \sum_{i=1}^{k} \frac{n}{2^i} + T(\frac{n}{2^k})\\
+         &=& 2n\cdot \sum_{i=1}^{\log n} \frac{1}{2^i}\\
+         &=& \Omega(n)
+    \end{eqnarray}
+
+\item $QUICKSORT(S)$
+    \begin{itemize}
+    \item Falls $S={a}$ return $a$
+    \item Sonst $a=MEDIAN(S)$
+    \item
+    \begin{tabbing}
+    Teile $S$ in
+    \= $S_1$ (Elemente $<a$) \\
+    \> $S_2$ (Elemente $=a$) \\
+    \> $S_3$ (Elemente $>a$)
+    \end{tabbing}
+    \item Sortiere $S_1$ und $S_2$ rekursiver
+    \item return $S_1 S_2 S_3$
+    \end{itemize}
+
+    \paragraph{Laufzeit} \ 
+
+    \begin{eqnarray}
+    T(1) &=& 1\\
+    T(n) &=& 2\cdot n + 2 \cdot T(\frac{n}{2})\\
+         &=& 4\cdot n + 4 \cdot T(\frac{n}{4})\\
+         &=& 6\cdot n + 8 \cdot T(\frac{n}{8})\\
+         &=& 2k\cdot n + 2^k \cdot T(\frac{n}{2^k})\\
+         &=& 2 n \cdot \log n + n \cdot T(1)\\
+         &=& \Omega(n \cdot \log n)
+    \end{eqnarray}
+
+\end{enumerate}
+
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+\item 
+    \begin{eqnarray}
+    T(1) &=& 0 \\
+    T(n) &=& n + \frac{1}{n} \left( \sum_{i=1}^{k-1} T(n-i) + \sum_{i=k+1}^{n} T(i-1) \right) \\
+         &\leq& n + \frac{2}{n} \sum_{i=\lfloor \frac{n}{2} \rfloor}^{n-1} T(i) \\
+    \end{eqnarray}
+
+    Behauptung: $T(n) \leq d \cdot n$
+
+    \paragraph{IA} $n=1$: 
+    \begin{eqnarray}
+        T(1) &=& 1 \\ &\leq& d \cdot n \text{ fuer $d\geq 1$}
+    \end{eqnarray}
+
+    \paragraph{IS} $\forall i\leq n-1$ $\to$ $n$
+
+    \begin{eqnarray}
+    T(n) 
+         &\leq& n + \frac{2}{n} \sum_{i=\lfloor \frac{n}{2} \rfloor}^{n-1} T(i) \\
+         &\leq& n + \frac{2d}{n} \sum_{i=\lfloor \frac{n}{2} \rfloor}^{n-1} i \\
+         &\leq& n + \frac{2d}{n} \cdot \frac{n(n-1) - \frac{n}{2}(\frac{n}{2}-1)}{2}  \\
+         &\leq& n + \frac{2d}{n} \cdot (\frac{3}{8}n^2 + \frac{1}{4} n) \\
+         &\leq& n + \frac{3}{4} d n + \frac{1}{2} d) \\
+         &=& \left( \frac{3}{4} d + 1 \right) n + \frac{d}{2}
+    \end{eqnarray}
+
+\item
+    Liegt der Range des zufaellig ausgewaehlten Elementes $a$ zwischen $\frac{1}{3}n$ und $\frac{2}{3}n$,
+    ist die Menge maxiamal $\frac{2}{3} n$ gross. Die Wahrscheinlichkeit fuer diesen Fall betraegt $\frac{1}{3}$.
+    Sonst hat die rekursiv durchsuchte Menge maximal $n-1$ Elemente.
+
+    Per induktion soll lineare Laufzeit gezeigt werden: 
+    
+    \paragraph{IB}
+    \begin{equation}
+    T(n) \leq d \cdot n
+    \end{equation}
+
+    \paragraph{IA} $n=1$:
+    \begin{equation}
+    T(1) = const\leq d \cdot n \text{ fuer $d \geq const$ }
+    \end{equation}
+
+    \paragraph{IS} $\leq n-1$ $\to$ $n$
+
+    \begin{eqnarray}
+    T(n) &=& n \cdot c + \frac{1}{3} T(\frac{2}{3} n) + \frac{2}{3} T(n-1) \\
+         &\leq& n \cdot c + \frac{2}{9} d n + \frac{6}{9} d \cdot (n-1) \\
+         &=& n \cdot c + \frac{8}{9} dn - \frac{4}{9} d \\
+         &=& n (c + \frac{8}{9} d) - \frac{4}{9} d \\
+         &\leq& n (c + \frac{8}{9} d) \\
+         \text{fuer $d=9c$: }\\
+         &=& n (c + \frac{8}{9} \cdot 9c) = 9 n c = d \cdot n
+    \end{eqnarray}
+\end{enumerate}
+
+\section*{Aufgabe 3}
+
+\end{document}
