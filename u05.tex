@@ -198,6 +198,48 @@ graph G {
 \end{enumerate}
 
 \section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+\item Bei dem Uebergang von $n = 2^k - 1$ zu $n = 2^k$ sind $k+1$ Flips noetig,
+    da alle $1$ zu $0$ gesetzt werden muessen und anschliessend die $k$. Stelle auf $1$.
+    Es kann also zu $O(2^k)$ Flips kosten.
+
+\item Anfangs sind alle Bits auf $0$. Die Invariante ist also erfuellt.
+
+    Wird eine Operation ausgefuert, stehen 2 Euro zur verfuegung.
+    Nun kann bei der hintersten Stelle begonnen werden, die noetigen Bits zu kippen:
+    \begin{description}
+    \item[Fall 1: Bit ist 0]
+    
+    Das mit einem Euro kann das Bit gesetzt werden, der andere wird eingezahlt in die Kasse des Bits.
+    Die Erhohung ist nun abgeschlossen.
+
+    \item[Fall 2: Bit ist 1]
+    
+    Das Bit hat also ein Guthaben von 1 Euro. Mit diesem kann es auf 0 gesetzt werden.
+
+    So kann zu dem naechsten Bit uebergegangen werden, da das Guthaben von $2$
+    Euro noch immer zur Verfuegung steht.
+    \end{description}
+
+    Also koennen bei einem Schritt alle noetigen Bits geflipt werden, ohne dass die Invariante verletzt werden.
+    Die Kosten fuer die Erhohung betragen also armortisiert 2.
+
+    \item 
+    Um die armotisierten Kosten zu Berechnen, koennen auch die Gesamtkosten alle Schritte bis $n$ betrachtet werden
+    und diese anschliesten durch die Anzahl der Schritte geteilt werden.
+
+    In dem Fall des Binaerzahlers koennen die Gesamtkosten fuer jedes Bit berechnet werden:
+    Das erste Bit muss in jedem schritt erhoet werden, das 2. nur in jedem 2. \ldots,
+    das Letzt bit wird nur einmal gesetzt.
+
+    Es ergibt sich also fuer die Gesamtkosten $K$
+    \begin{eqnarray}
+    K &\leq& n + \frac{n}{2} + \frac{n}{4} \cdots + 1 = \sum_{i=1}^{\log_2 n} 2^i = 2^{\log_2 n + 1} = 2n
+    \end{eqnarray}
+
+    Auch hier ergeben sich armortisierte Kosten von 2 Flips pro Schritt.
+\end{enumerate}
+
 \section*{Aufgabe 3}
 
 \end{document}
