@@ -1,0 +1,7 @@
+*-dot2tex-*
+*.aux
+*.log
+*.pdf
+*.dvi
+*.swp
+*.class
