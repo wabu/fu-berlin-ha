@@ -1,0 +1,140 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{4}
+
+\begin{document}
+\section*{Aufgabe 1}
+\begin{lstlisting}
+int interpolationssuche(double[] S, int l, int r, double a) {
+    if (S[l] <= a && a >= S[r]) { // liegt in intervall
+        // interpoliere
+        double varianz = (S[r] - S[l]);
+        int k = l + (int) (((double) r - l) * (a - S[l]) / varianz);
+        // suche weiter je nach ergebniss
+        if (a > S[k]) {
+            return interpolationssuche(S, k + 1, r, a);
+        } else if (a < S[k]) {
+            return interpolationssuche(S, l, k - 1, a);
+        } else {
+            return k;
+        }
+    } else { // nicht gefunden
+        return -1;
+    }
+}
+\end{lstlisting}
+\begin{lstlisting}
+int quadbin(double[] S, int l, int r, double a){
+    if(l>=r)
+        return -1;
+    //Interpoliere um wahrscheinliche Position zu ermitteln
+    int locall = l;
+    int localr = r;
+    double varianz = (S[r] - S[l]);
+    int interpol = l + (int) (((double) r - l) * (a - S[l]) / varianz);
+
+    if(S[interpol]<a){ //das gesuchte a liegt rechts der interpolierten Stelle
+        locall=interpol;
+        localr=(int) (locall+ Math.sqrt(r-l+1));
+        do { // suche nach sqrt(n) grossem intervall, indem a liegt
+            locall = localr;
+            localr = (int) (locall+ Math.sqrt(r-l+1));
+            if(localr>=S.length){
+                    localr=S.length-1;
+            }
+        } while(S[localr]<a);
+    }else if(S[interpol]>a){//das gesuchte a liegt links der interpolierten Stelle
+        localr=interpol;
+        locall=(int) (localr - Math.sqrt(r-l+1));
+        do { // suche nach sqrt(n) grossem intervall, indem a liegt
+            localr = locall;
+            locall = (int) (localr - Math.sqrt(r-l+1));
+            if(locall<0){
+                locall=0;
+            }
+        } while(S[locall]>a);	
+    } else {
+        return interpol;
+    }
+    return quadbin(S, locall, localr, a);
+}
+\end{lstlisting}
+
+\paragraph{Output}
+\begin{verbatim}
+generating random arrays
+sorting array
+starting serach
+noetige Vergleiche 11 interpolationssuche
+noetige Vergleiche 6 quad. binsuche
+3648295 0.3650047047171787
+3648295 0.3650047047171787
+generating random arrays
+sorting array
+starting serach
+noetige Vergleiche 8 interpolationssuche
+noetige Vergleiche 12 quad. binsuche
+3520185 0.3519754393375424
+3520185 0.3519754393375424
+generating random arrays
+sorting array
+starting serach
+noetige Vergleiche 8 interpolationssuche
+noetige Vergleiche 8 quad. binsuche
+6085719 0.6084726611547623
+6085719 0.6084726611547623
+generating random arrays
+sorting array
+starting serach
+noetige Vergleiche 11 interpolationssuche
+noetige Vergleiche 9 quad. binsuche
+9653000 0.9652713157333066
+9653000 0.9652713157333066
+generating random arrays
+sorting array
+starting serach
+noetige Vergleiche 8 interpolationssuche
+noetige Vergleiche 6 quad. binsuche
+8480422 0.8479237443782034
+8480422 0.8479237443782034
+generating random arrays
+sorting array
+starting serach
+noetige Vergleiche 11 interpolationssuche
+noetige Vergleiche 12 quad. binsuche
+3839678 0.383870533974631
+3839678 0.383870533974631
+generating random arrays
+sorting array
+starting serach
+noetige Vergleiche 14 interpolationssuche
+noetige Vergleiche 6 quad. binsuche
+2765306 0.2766251266738775
+2765306 0.2766251266738775
+\end{verbatim}
+
+\section*{Aufgabe 2}
+
+\begin{enumerate}[(a)]
+\item Es muss erst eine obere Grenze gefunden werden, bei der der Lastwagen zerstoert wird. Dannach kann nach der 
+    Tonnenanzahl binaer gesucht werden. Zur Bestimmung der oberne Grenze kann mit 1T beginnent, der wert immer verdoppelt werden.
+
+    Haelt der Lastwagen $n$ Tonnen aus, so benoetigt man $\lceil \log_2 n \rceil$ Versuche, um die obere Grenze zu finden.
+    Dannauch muss ein Raum von maximal $\frac{1}{2}n$ binaer durchsuchtwerden. Also benoetigt man insgesamt
+    maximal $2 \lceil \log_2 n \rceil - 2$ Versuche.
+
+\item Darf nur ein Anhaenger zerstoert werden, muss die bei 1T beginend, jede beladung getestet werden.
+    Es sind allso $n$ Versuche notwendig.
+
+\item Bei zwei Anhaengern kann wie unter (a) die obere Grenze bestimmt werden, anschliesend muss noch der maxiamal
+    $\frac{1}{2}n$ grosse Raum linear durchsuchtwerden. Bei $k$ Anhaengern kann dieser noch in $k-1$ Schritten auf $\frac{1}{2^{k-1}}$ 
+    eingeschraengt werden, wobei maximal $\log \frac{n}{2}$ schritte noetig sind.
+
+    Es werden also $\lceil \log_2 n \rceil + \max \{ k-1 + \frac{n}{2^{k-1}}, \lfloor \log_2 n \rfloor - 2\}$
+
+\end{enumerate}
+
+\end{document}
