@@ -1,0 +1,203 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{5}
+
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+\item AVL-Baum
+
+\begin{itemize}
+\item 32: 
+\begin{dot2tex}[autosize]
+graph G {
+    32
+}
+\end{dot2tex}
+
+\item 27: 
+\begin{dot2tex}[autosize]
+graph G {
+    32 -- 27
+    0[style=invis]
+    32 -- 0[style=invis]
+}
+\end{dot2tex}
+
+\item 13: AVL fuer Wurzel verletzt, einfache Rotation noetig
+\begin{dot2tex}[autosize]
+graph G {
+    a32[label=32,shape=octagon]
+    a27[label=27]
+    a13[label=13]
+    a32 -- a27 -- a13
+    a0[style=invis]
+    a32 -- a0[style=invis]
+    a27 -- a0[style=invis]
+    27 -- 13
+    27 -- 32
+}
+\end{dot2tex}
+
+\item 41:
+\begin{dot2tex}[autosize]
+graph G {
+    0[style=invis]
+    27 -- 13
+    27 -- 32
+    32 -- 0[style=invis]
+    32 -- 41
+}
+\end{dot2tex}
+
+\item 55: Rotation in Teilbaum noetig
+\begin{dot2tex}[autosize]
+graph G {
+    0[style=invis]
+    27 -- 13
+    27 -- 32
+    32[shape=octagon]
+    32 -- 0[style=invis]
+    32 -- 41
+    41 -- 0[style=invis]
+    41 -- 55
+
+    a27[label=27]
+    a13[label=13]
+    a32[label=32]
+    a41[label=41]
+    a55[label=55]
+
+    a27 -- a13
+    a27 -- a41
+    a41 -- a32
+    a41 -- a55
+}
+\end{dot2tex}
+
+\item 86: Doppelrotation in Wurzel noetig
+\begin{dot2tex}[autosize]
+graph G {
+    a0[style=invis]
+    a27[label=27,shape=octagon]
+    a13[label=13]
+    a32[label=32]
+    a41[label=41]
+    a55[label=55]
+    a86[label=86]
+
+    a27 -- a13
+    a27 -- a41
+    a41 -- a32
+    a41 -- a55
+    a55 -- a0[style=invis]
+    a55 -- a86
+
+    0[style=invis]
+    41 -- 27
+    27 -- 13
+    27 -- 32
+    41 -- 55
+    55 -- 0[style=invis]
+    55 -- 86
+}
+\end{dot2tex}
+\item 72: Doppel-Rotation noetig
+\begin{dot2tex}[autosize]
+graph G {
+    41 -- 27
+    27 -- 13
+    27 -- 32
+    41 -- 55
+    0[style=invis]
+    55[shape=octagon]
+    55 -- 0[style=invis]
+    55 -- 86
+    86 -- 72
+    o[style=invis]
+    86 -- o[style=invis]
+
+    a0[style=invis]
+    a13[label=13]
+    a27[label=27]
+    a32[label=32]
+    a41[label=41]
+    a55[label=55]
+    a72[label=72]
+    a86[label=86]
+
+    a41 -- a27
+    a27 -- a13
+    a27 -- a32
+    a41 -- a72
+    a72 -- a55
+    a72 -- a86
+}
+\end{dot2tex}
+
+\item 69:
+\begin{dot2tex}[autosize]
+graph G {
+    a0[style=invis]
+    a13[label=13]
+    a27[label=27]
+    a32[label=32]
+    a41[label=41]
+    a55[label=55]
+    a69[label=69]
+    a72[label=72]
+    a86[label=86]
+
+    a41 -- a27
+    a27 -- a13
+    a27 -- a32
+    a41 -- a72
+    a72 -- a55
+    a72 -- a86
+    a55 -- a0[style=invis]
+    a55 -- a69
+}
+\end{dot2tex}
+
+\item Loeschen 72: Der rechte teilbaum ist hoerer, desshalb wird der Vorgaenger von 72, also 69, gewaehlt, um den knoten zu ersetzen
+\begin{dot2tex}[autosize]
+graph G {
+    a0[style=invis]
+    a13[label=13]
+    a27[label=27]
+    a32[label=32]
+    a41[label=41]
+    a55[label=55]
+    a69[label=69]
+    a72[label=72]
+    a86[label=86]
+
+    a41 -- a27
+    a27 -- a13
+    a27 -- a32
+    a41 -- a72
+    a72 -- a55
+    a72[label=""]
+    a69[shape=rect]
+    a72 -- a86
+    a55 -- a0[style=invis]
+    a55 -- a69
+
+    41 -- 27
+    27 -- 13
+    27 -- 32
+    41 -- 69
+    69 -- 55
+    69 -- 86
+}
+\end{dot2tex}
+\end{itemize}
+\end{enumerate}
+
+\section*{Aufgabe 2}
+\section*{Aufgabe 3}
+
+\end{document}
