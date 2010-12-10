@@ -1,0 +1,55 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{7}
+
+\begin{document}
+\section*{Aufgabe 2}
+\paragraph{Korrektheit}
+Annahme:
+Sei $u,v$ Knoten, die nicht in der richtigen Reihenfolge ausgegeben wurden, dh. eine Kante $k = (v,u)$ in $E$ existiert,
+dennoch $u$ vor $v$ ausgegeben wird.
+
+Da $u$ nur ausgegeben wird, wenn es einen Ingrad von 0
+besitzt, muesste also $k$ erst entfernt worden sein, bevor $u$ ausgegben wird.
+Allerdings wird eine Kante nur entfernt, wenn der Ursprungsknoten
+ausgegeben wurde, was der Annahme widerspricht, dass $u$ vor $v$ ausgegeben wurden
+
+\section*{Aufgabe 3}
+\begin{itemize}
+\paragraph{Datenstrukturen}
+\item zum Speichern des Graphen wird eine Adjuszenzliste verwendet
+\item zum Finden der Kante minimalen Gewichtes benoetigt man eine Hilfsstruktur:
+    wir verwenden eine Liste, in der fuer jeden Knoten aud $V$ gespeichert wird,
+    wie teuer dieser ueber eine an $T$ anschliesende Kante erreichbar ist, bzw. 
+    falls dieser nicht erreichbar ist, der Wert $\infty$. Zusaetzlich wird in der Liste
+    der andere Endknoten, ueber den dieser Knoten erreichbar ist, gespeichert.
+    $ \to $ Initialisierung $O(|V|)$
+\item Wird ein Knoten zu $T$ hinzugefuegt, werden entsprechend die Werte der ueber diesen Knoten 
+    erreichbaren Knoten erneuert $ \to $ Laufzeit $O(|V|)$
+\item zum Findern einer Kante kann nun diese Liste nach dem minimalen wert Durchsucht werden.
+     $ \to $ Laufzeit $O(|V|)$
+\end{itemize}
+
+\paragraph{Laufzeit}
+In jedem der $|V|-1$ Schritte betraegt die Laufzeit $O(|V|)$, also ergibt sich eine Laufzeit von 
+$O(|V|^2)$
+
+\paragraph{Korrektheit}
+$T$ ist ein Baum, da nur Kanten, die auf Knoten meit einem Endknoten ausserhalb von $W$ hinzugefuegt werden.
+Sei nun $Y$ der minimale aufpannende Baum von $G$. 
+
+Falls nun $Y \neq T$, dann muesste eine Kante $k$ zu $T$ hinzugefuegt worden sein, die nicht in $Y$ ist.
+Man bezeichne die Knoten in $T$ vor der hinzufuegung von $k$ mit $W$. Da $Y$ ein MST ist, gibt es einen Pfad in $Y$,
+der die Endknoten von $k$ verbindet. Auf diesem Pfad muss es eine Kante $k'$ geben, die einen Knoten in $W$ mit einem
+Knoten ausserhalb $W$ verbindet, da einer der Endknoten von $k$ in $V$ liegt, der andere ausserhalb.
+Da $Y$ ein MST mussen die Kosten fuer den Pfad minimal sein, also auch geringer als die Kosten von $w(k)$.
+Da der Pfad aber $k'$ einschliest, muessen auch die Kosten von $w(k')$ geringer sein als die von $w(k)$.
+Da $k'$ auch einen Knoten innerhalb von $V$ mit einem Knoten ausserhalb von $V$ verbindet, haette der Algorithmus
+die Kante $k'$ auswaehlen muessen, da die Kosten geringer sind als die von $k$.
+
+Also muss $T = Y$ sein.
+
+\end{document}
