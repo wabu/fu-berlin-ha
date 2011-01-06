@@ -1,0 +1,104 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{8}
+
+\begin{document}
+\section*{Aufgabe 1}
+
+\paragraph{IA:} $k=1$
+
+Fuer jede Kante in dem Graphen existiert jeweils ein Weg der Laenge $1$. In der der Adjuszentzmatrix $A$
+steht fuer die Kante eine $1$, sodass $A^1$ auch die Anzahl der Wege angiebt.
+
+\paragraph{IS:} $k \to k+1$
+
+Nach vorraussetzung gibt $A^k_{i,j}$ die Anzahl der Wege der Laenge $k$ von $i$ nach $j$ an.
+
+Daraus kann die Anzahl der Wege von $i$ nach $j$ der Laenge $k+1$ berechnet werden,
+indem fuer jeden der Knoten $v \in V$ ueberprueft wird, ob ein Weg von $i$ nach $v$ und eine Kante 
+von $v$ nach $j$ exisitert:
+
+\begin{eqnarray}
+A^{k+1}_{i,j} &=& \sum_{z \in V} \begin{cases} A^k_{i,z} & \text{falls $A^k_{z,j}$} \\0 & \text{sonst}  \end{cases}\\
+        &=& \sum_{z \in V} A^k_{i,z} \cdot A^k_{z,j}
+\end{eqnarray}
+
+Dies entspricht also der Matrixmultiplikation von $A^k\cdot A = A^{k+1}$ \qed
+
+
+\paragraph{}
+Wird die Addition durch $\lor$ ersetzt, wird nicht die Anzahl der Wege gezaehlt, es wird nur bestimmt, ob ein Weg
+der Laenge $k$ existiert.
+
+\section*{Aufgabe 2}
+
+\paragraph{Dijkstra}
+\begin{alltt}
+fuer alle Knoten \(v \in V\)
+  \(D[v] := C(s,v)\)
+  \(B[v] := \begin{cases} s \text{falls \(s\) adjszent zu \(v\)} \\ nil \text{sonst} \end{cases} \)
+\(S := {s}\)
+\(D[s] := 0\)
+
+while \(V \setminus S = \emptyset\) do
+    waehle den Knoten \(w \in V \ S\) mit minimalem \(D[w]\)
+    \(S := S \cup \{w\}\)
+    for each \(u \in V \setminus S\), \(u\) adjazent zu \(w\) do
+      if \(D[w]+C(w, u) \leq D[u] \)
+         \(D[u] = D[w]+C(w, u)\)
+         \(B[u] = w\)
+\end{alltt}
+
+$B[u]$ enthaelt nun den umgekehrten Pfad zu dem Startknoten:
+\begin{alltt}
+outputPath\((t)\)
+   \(p = B[t]\)
+   outputPaht\((p)\)
+   output\((p)\)
+\end{alltt}
+
+
+\paragraph{Floyd Warshall} $ $
+
+Es wird im Algoritmus $B_{ij}$ aufgebaut, das angiebt, welcher Knoten benutzt wurde, 
+um den kuerzesten Weg von $i$ nach $j$ zu bestimmen. Wird die Kante $i,j$ benutzt,
+ist der Wert von $B_{ij} = \to$, wird kein Wege von $i$ nach $j$ gefunden, ist der Wert $\bot$
+\begin{alltt}
+for \(i = 1 \cdots n \) do
+  for \(j = 1 \cdots n \) do
+    \(d\sp{(0)}\sb{ij} = \begin{cases} c(i,j) \text{falls \((i,j) \in E\)} \\ \infty \text{sonst}\end{cases}\)
+    \(B\sb{ij} = \begin{cases} \to \text{falls \((i,j) \in E\)} \\ \bot \text{sonst}\end{cases}\)
+  end for
+end for
+for \(k = 1 \cdots n \) do
+    for \(i = 1 \cdots n \) do
+      for \(j = 1 \cdots n \) do
+        \(d\sb1 = d\sp{(k-1)}\sb{ij}\)
+        \(d\sb2 = d\sp{(k-1)}\sb{ik} + d\sp{(k-1)}\sb{kj}\)
+        if \(d\sb1 \leq d\sb2\)
+          \(d\sp{(k)}\sb{ij} = d\sb_1 \)
+        else
+          \(d\sp{(k)}\sb{ij} = d\sb_2 \)
+          \(B\sb{ij} = \to k\)
+        end if
+     end for
+  end for
+end for
+\end{alltt}
+
+Nun koennen die Wege rekursive aus $B$ bestimmt werden:
+
+\begin{alltt}
+outputPath\((i,j,B)\)
+   if \(B\sb{ij} = \bot\)
+     error "no path from \(i\) to \(j\)"
+   if \(B\sb{ij} = \to\)
+     output \((i,j)\)
+   outputPath\((i,B\sp{ij},B)\)
+   outputPath\((B\sp{ij},j,B)\)
+\end{alltt}
+
+\end{document}
