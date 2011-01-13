@@ -1,0 +1,86 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{9}
+
+\begin{document}
+\section*{Aufgabe 1}
+\paragraph{a)}
+Sei $f(x) = c^T \cdot x = c_1 x_1 + c_2 x_2 + \cdots c_n x_n$ das Optimierunsproblem, mit Nebenbedingunen\\
+    $a_{1,i_1}  x_{i_1} + a_{1,i_2} x_{i_2} + \cdots + a_{1,i_k} x_{i_k} \begin{matrix}\leq\\=\\\geq\end{matrix}b_1$, \\
+    $a_{2,i_1} x_{i_1} + \cdots$, \\\ldots
+
+\begin{itemize}
+\item Handelt es sich um ein Maxierungsproblem, so kann statt dessen $\tilde{f}(x) = (-c)^T x$ minimiert werden.
+\item Nebenbedingungen der From $a_{i_1} x_{i_1} + a_{i_2} x_{i_2} + \cdots + a_{i_k} i_{i_k} = b$ koennen
+    durch $a_{i_1} x_{i_1} + a_{i_2} x_{i_2} + \cdots + a_{i_k} i_{i_k} \leq b$ und 
+    $a_{i_1} x_{i_1} + a_{i_2} x_{i_2} + \cdots + a_{i_k} i_{i_k} \geq b$ und 
+    ersetzt werden.
+\item Nebenbedingungen der Form $a_{i_1} x_{i_1} + a_{i_2} x_{i_2} + \cdots + a_{i_k} i_{i_k} \geq b$ koennen
+    durch $-a_{i_1} x_{i_1} - a_{i_2} x_{i_2} - \cdots - a_{i_k} i_{i_k} \leq b$ ersetzt werden,
+    da fuer jede Belegung $x_{i_j}$ die erste Form genau dann gilt, wenn auch die Zweite gilt.
+\item Vorzeichenbedinungen der Form $x_i \leq 0$, koennen durch $x_i' \geq 0$ ersetzt werden, 
+    wobei $x_i$ durch $-x'_i$ ausgetascht werden muss.
+    Wurde in der unveraenderten From eine Belegung fuer $x_i \leq 0$ gefunden, so gelten nun fuer $x_i' = -x_i$ 
+    alle Nebenbedinugen und $x_i \geq 0$.
+\item Variablen $x_i$ ohne Vorzeichenbedinung werden durch $(x_i^+ - x_i^-)$ ersetzt, mit der Bedingung 
+    Fuer jeden Belgung $x_i \geq 0$, kann $x_i^+=x_i$, $x_i^-=0$ gesetzt werden, 
+    fuer jeden Belgung $x_i \leq 0$, kann $x_i^+=0$, $x_i^-=-x_i$ gesetzt werden, sodass nun $(x_i^+ - x_i^-) = x_i$, 
+    $x_i^+ \geq 0$ und  $x_i^- \geq 0$
+\end{itemize}
+
+\paragraph{b)}
+Ist die maximiernde Zielfunktion von der Form $\min(c^T x, d^T x)$
+
+\section*{Aufgabe 2}
+\section*{Aufgabe 3}
+\paragraph{a)}
+
+\paragraph{b)}
+Zu minimieren ist die Laene des kuerzesten Weges $f(x) = x_t$
+
+Fuer jede Kante $(u,v) \in E$ muessen folgende Nebenbedinungen gelten:
+$x_v \leq x_u + c(u,v)$. Zusaetzlich gilt $x_s = 0$
+
+Sei $s, v_1, v_2, \cdots, v_k, t$ ein kuerzest Weg von $s$ nach $t$. Zusaetalich bezeichne
+$l_v$ die Lanege des kuerzesten Weges von $s$ nach $v$.
+
+Sei nun $(x_v)_{v\in V}$ eine Belegung mit minimalem $f(x) = x_t$.
+
+\paragraph{Anahme:} $l_t \neq x_t$
+
+\paragraph{1. Fall:} $l_t \geq x_t$:
+
+\begin{eqnarray}
+    l_t &=&         c(s,v_1) + c(v_1,v_2) + \cdots + c(v_k,t) \\
+      &\geq& x_{v_1} - x_s + c(v_1,v_2) + \cdots + c(v_k,t) \\
+      &=&    x_{v_1} + c(v_1,v_2) + \cdots + c(v_k,t) \\
+      &\geq& x_{v_1} + x_{v_2} - x_{v_1} + c(v_2,v_3) + \cdots + c(v_k,t) \\
+      &=&              x_{v_2}           + c(v_2,v_3) + \cdots + c(v_k,t) \\
+      &\geq&           x_{v_3}           + c(v_3,v_4) + \cdots + c(v_k,t) \\
+      &\geq& \cdots \\
+      &\geq& x_t
+\end{eqnarray}
+Also kann dieser Fall nicht auftreten.
+
+\paragraph{2. Fall:} $l_t \leq x_t$
+
+Anhand des kuerzesten weges kann eine Belegung gefunden werden, fuer die die Nebenbedungungen gelten: 
+\begin{eqnarray}
+    x_{v_1}' &=& c(s,v_1) = l_{v_1}\\
+    x_{v_2}' &=& x_{v_1}' + c(v_1,v_2) = l_{v_2}\\
+    x_{v_3}' &=& x_{v_2}' + c(v_2,v_3) = l_{v_3}\\
+    \cdots  &=&  \cdots\\
+    x_{v_k}' &=& x_{v_{k-1}}' + c(v_{k-1},v_k) = l_{v_k}\\
+    x_t' &=&  x_{v_k}' + c(v_{k}, t) = l_t\\
+\end{eqnarray}
+
+Da $l_v$ ein kuerzester Weg von $s$ nach $v$, gilt fuer alle $u \in V$: $l_v \leq l_u + c(u,v)$, 
+also auch $x_v' \leq x_u' + c(u,v)$. Also wurde ein Belegung gefunden, fuer die gilt
+$x_t' \leq x_t$, also war $x_t$ nicht minimal, was ein Wiederspruch zur Minimierung von $f(x) = x_t$ darstellt.
+
+Somit muss fuer eine minimale Loesung gelten dass $x_t = l_t$, die lanege des kuerzest Weges, ist.
+
+\end{document}
