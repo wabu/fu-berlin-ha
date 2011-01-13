@@ -35,8 +35,77 @@ Sei $f(x) = c^T \cdot x = c_1 x_1 + c_2 x_2 + \cdots c_n x_n$ das Optimierunspro
 Ist die maximiernde Zielfunktion von der Form $\min(c^T x, d^T x)$
 
 \section*{Aufgabe 2}
+\paragraph{Variablen:}
+Der Arbeitgeber kann sich entscheiden, wie viele seiner fest angestellten Arbeiter er 
+in jeder Woche neue Arbeiter anlernen laesst und wie viele diese jeweils Ausbilden. 
+Sei $x_i$ die Anzahl der ausbildenden Arbeiter in der Woche $i=1 \cdots 3$, 
+    $y_i$ die Anzahl der der Arbeiter, die in der Woche $i$ neu ausgebildet werden.
+
+Zusaetalich kann in jeder Woche auf die Herstellung von $z_i$ Radios verzichtet werden.
+
+\paragraph{Einnahmen:}
+Alle aktiven Arbeiter bauen 50 Radios in einer Woche, somit ergibt sich fuer den Gewinn in der:
+\begin{description}
+\item[1. Woche] $((40 - x_1) \cdot 50 - z_1) \cdot 40 \\= 
+    80000 - x_1 \cdot 2000 - z_1 \cdot 50 $
+\item[2. Woche] $((40 + y_1 - x_2) \cdot 50 - z_2) \cdot 36 \\= 
+    72000 + y_1 \cdot 1800 - x_2 \cdot 1800 - z_2 \cdot 36$
+\item[3. Woche] $((40 + y_1 + y_2 - x_3) \cdot 50 - z_3) \cdot 32 \\= 
+    64000 + y_1 \cdot 1600 + y_2 \cdot 1600 - x_3 \cdot 1600 - z_3 \cdot 32$
+\item[4. Woche] $((40 + 3\cdot x_1 + 3\cdot x_2 + 3\cdot x_3) \cdot 50 - z_4) \cdot 28 \\= 
+    56000 + y_1 \cdot 1400 + y_2 \cdot 1400 + y_3 \cdot 1400 - z_4 \cdot 28$
+\item[Insgesamt]
+    $272000 - 2000 x_1 - 1800 x_2 - 1600 x_3 + 4800 y_1 + 3000 y_2 + 1400 y_3
+     - 40 z_1 - 36 z_2 - 32 z_3 - 28 z_4$
+\end{description}
+
+\paragraph{Ausgaben:}
+Fuer die festangestellten Arbeiter muss ein Lohn von $400 \cdot 40 \cdot 4 = 64000$ ausgezahlt werden.
+Fuer Neuangestellte muss der Lohn in folgender hoehe ausgezahlt werden:
+\begin{description}
+\item[1. Woche] $y_1 \cdot 200$
+\item[2. Woche] $y_1 \cdot 400 + y_2 \cdot 200$
+\item[3. Woche] $y_1 \cdot 400 + y_2 \cdot 400 + y_3 \cdot 200$
+\item[4. Woche] $y_1 \cdot 400 + y_2 \cdot 400 + y_3 \cdot 400$
+\item[Insgesamt] $1400 y_1 + 1000 y_2 + 600 y_3$
+\end{description}
+Zusaetzlich muessen die Produktionskosten in Hohe von $10 \cdot 20000 = 200000$ getragen werden
+
+Also ergibt sich ein Gewinn von 
+\begin{equation}
+f(x) = 
+    8000 - 2000 x_1 - 1800 x_2 - 1600 x_3 + 3400 y_1 + 2000 y_2 + 800 y_3 - 40 z_1 - 36 z_2 - 32 z_3 - 28 z_4
+\end{equation}
+
+\paragraph{Nebenbedinugen}
+\begin{itemize}
+\item es muessen 20000 Raidos hergestellt werden:
+    \begin{description}
+    \item[1. Woche] $(40 - x_1) \cdot 50 -z_1\\= 
+        2000 - x_1 \cdot 50 - z_1$
+    \item[2. Woche] $(40 + y_1 - x_2) \cdot 50 -z_2\\= 
+        2000 + y_1 \cdot 50 - x_2 \cdot 50 - z_2$
+    \item[3. Woche] $(40 + y_1 + y_2 - x_3) \cdot 50 -z_3\\= 
+        2000 + y_1 \cdot 50 + y_2 \cdot 50 - x_3 \cdot 50 - z_3$
+    \item[4. Woche] $(40 + 3\cdot x_1 + 3\cdot x_2 + 3\cdot x_3) \cdot 50 - z_4\\= 
+        2000 + y_1 \cdot 50 + y_2 \cdot 50 + y_3 \cdot 50 - z_4$
+    \item[Insgesamt] 
+    \begin{equation}
+        8000 - 50 \sum_{i=1}^3 x_i + 150 y_1 + 100 y_2 + 50 y_3 - \sum_{i=1}^4 z_1 = 20000
+    \end{equation}
+    \end{description}
+\item ein Arbeiter kann maximal 3 andere Ausbilden:
+    \begin{equation}
+    y_i \leq 3 x_i
+    \end{equation}
+
+\item alle Variablen muessen auserdem $\geq 0$ sein
+
+\end{itemize}
+
 \section*{Aufgabe 3}
 \paragraph{a)}
+
 
 \paragraph{b)}
 Zu minimieren ist die Laene des kuerzesten Weges $f(x) = x_t$
