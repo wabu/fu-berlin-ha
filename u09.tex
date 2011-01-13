@@ -105,7 +105,32 @@ f(x) =
 
 \section*{Aufgabe 3}
 \paragraph{a)}
+Die Definition von Fluss in einem Netzwerk kann einfach zu einem Linearen Program umformoliert werden.
 
+\paragraph{Variablen}
+Der Fluss $x_{u,v}$ ueber eine Kante $(u,v) \in E$ muss bestimmt werden.
+
+\paragraph{Funktion}
+Der Fluss in den Zielknoten $t$ muss maximiert werden:
+\begin{equation}
+f(x) = \sum_{v\in V: (v,t) \in E} x_{v,t}
+\end{equation}
+
+\paragraph{Nebenbedingungen}
+\begin{itemize}
+\item $\forall v \in V \setminus \{s,t\}$ muss der eingehende Fluss gleich dem ausgehendem sein:
+    \begin{equation}
+    \sum_{u\in V} x_{u,v} - \sum_{u\in V} x_{v,u} = 0
+    \end{equation}
+\item fuer jede Kante $(u,v) \in E$ darf der Fluss die Kapazitaet nicht ueberschreiten:
+    \begin{equation}
+    x_{u,v} \leq c(u,v)
+    \end{equation}
+\item Der Fluss muss positiv sein:
+    \begin{equation}
+    x_{u,v} \geq 0
+    \end{equation}
+\end{itemize}
 
 \paragraph{b)}
 Zu minimieren ist die Laene des kuerzesten Weges $f(x) = x_t$
