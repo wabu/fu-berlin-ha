@@ -1,0 +1,95 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{11}
+
+\begin{document}
+
+\section*{Aufgabe 1}
+\paragraph{a)}
+
+Minimierung von $x_0$ in
+\begin{eqnarray}
+  x_1 - x_2 - x_0 + x_4 &=& -1 \\
+ -x_1 - x_2 - x_0 + x_5 &=& -3 \\
+ 2x_1 + x_2 - x_0 + x_6 &=& 4 \\
+\end{eqnarray}
+
+mit $x_0 = 3$, $x_1,x_2=0$ \tf $x_5=0$, $x_4=2$, $x_6=7$
+\\Basis $x_0, x_4, x_7$, Minimierung von $x_0 = 3 - x_1 -x_2 + x_5$
+
+\ldots
+
+\paragraph{b)}
+\paragraph{c)}
+
+\section*{Aufgabe 2}
+
+\paragraph{Hamilton Pfad}
+\begin{eqnarray}
+L &=& \{G | \text{$G$ hat Hamilton-Pfad} \} \\
+x &=& v_1 \# v_2 \# \cdots \# v_n \text{ mit $n \leq |V|$}
+\end{eqnarray}
+
+\begin{alltt}
+algorithm \(A(G,x)\)
+    for \((u,v)\) in \(zip(init(x), tail(x))\)
+      if \((u,v) \notin V\)
+        return false // kante gib es gar nicht
+    for \(v\) in \(V\)
+      if \(v \notin x\)
+        return flase // knoten wurde nicht besucht
+    for \(i\) in \(1\) to \(n\)
+      for \(j\) in \(1\) to \(n\)
+        if \(x[i] == x[j]\) and \(i \neq j\)
+          return false // knoten zweifach besucht
+    return true
+\end{alltt}
+
+$O(m) = m^2$, da es nur eine Scheifentiefe von 2 gibt,
+die jeweils durch die Anzahl der Knoten in dem Graphen beschraenkt ist
+
+Somit ist Hamilton in $NP$
+
+\paragraph{Oberwort}
+\begin{eqnarray}
+L &=& \{(w_1,w_2,\cdots,w_n,k) | \text{$\exists w$ mit $|w|=k$, sodass $w_i \in w \forall i$} \} \\
+x &=& w
+\end{eqnarray}
+
+\begin{alltt}
+algorithm \(A((w\sb{1},w\sb{2},\cdots,w\sb{n},k),x)\)
+    if \(w| \neq k\)
+      return false // nicht richtige laenge
+    for \(i\) from 1 to \(n\)
+      if not \(w_i \in w\)
+        return false // kein teilwort
+\end{alltt}
+
+$O(m) = m^2$
+
+\paragraph{Graphisomorphie}
+\begin{eqnarray}
+L &=& \{G_1,G_2 | \text{$\exists f: (u_1,v_1) \in E_1 \Leftrightarrow (u_2,v_2) \in E_2$} \} \\
+x &=& f
+\end{eqnarray}
+
+\begin{alltt}
+algorithm \(A((G\sb1,G\sb2),x)\)
+    forall \( (u\sb1,v\sb1) \in E\sb1\)
+      if not \((u\sb1,v\sb1) \in E\sb2\)
+        return false
+    forall \( (u\sb2,v\sb2) \in E\sb2\)
+      if not \((u\sb2,v\sb2) \in E\sb1\)
+        return false
+    return true
+\end{alltt}
+
+$O(m) = m^2$
+
+\paragraph{0-1-LP}
+
+
+\end{document}
