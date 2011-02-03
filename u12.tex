@@ -1,0 +1,126 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{12}
+
+\begin{document}
+\section*{Aufgabe 1}
+\paragraph{a) Hamilton-Pfad $\leq_p$ Hamilton-Kreis}
+
+\begin{eqnarray}
+f &:& \text{Menge unger. Graphen} \to \text{Menge ungr. Graphen}\\
+  & & G \mapsto G'
+\end{eqnarray}
+
+Dabei wird $G$ mit Knotenmenge $V$ und Kantenmenge $E$ auf $G'$ abgebildet, mit 
+$V' = V \cup \{\tilde{v}\}$ und $E' = E \cup \{ (\tilde{v}, v), v\in~V\}$.
+
+Da das hinzufuegen des Knoten in konstanter, das hinzufuegen der neuen Kanten in lineare Zeit
+geht, ist $f$ in polynomieller Zeit berechenbar.
+
+\paragraph{$G$ hat Hamilton-Pfad $\Rightarrow$ $G'$ hat Hamilton-Kreis} $ $ 
+
+Da $G$ Ham-Pfad, $\exists v_1 \cdots v_n$, sodass $(v_i, v_i+1) \in E$ fuer $i=1\cdots n-1$
+und $\{v_1, \cdots, v_n\} = V$. 
+
+Es gilt nun auch, $(v_i, v_i+1) \in E'$ und $(\tilde{v}, v_n), (\tilde{v}, v_1) \in E'$
+und $\{v_1, \cdots, v_n, \tilde{v}\} = V'$. Also ist $v_1 \cdots v_n \tilde{v}$ Hamilton-Kreis in $G'$
+
+\paragraph{$G$ hat Hamilton-Pfad $\Leftarrow$ $G'$ hat Hamilton-Kreis} $ $ 
+
+$G'$ hat Ham-Kreis \tf $\exists \tilde{v} v_1 \cdots v_n$, 
+    sodass $(v_i, v_i+1) \in E'$ fuer $i=1\cdots n$ und $(\tilde{v}, v_n), (\tilde{v}, v_1) \in E'$ und $\{v_1, \cdots, v_n, \tilde{v}\} = V'$.
+
+Es gilt auch, $(v_i, v_i+1) \in E$ fuer $i=1\cdots n$, und $\{v_1, \cdots, v_n\} = V$. Also
+ist $v_1 \cdots v_n$ Hamilton-Pfad in $G$.
+
+
+
+\paragraph{b) Hamilton-Pfad $\leq_p$ TGI}
+
+\begin{eqnarray}
+f &:& \text{Menge unger. Graphen} \to \{\langle G_1, G_2 \rangle | \text{$G_1, G_2$ unger. Graphen}\}\\
+  & & G \mapsto \langle G_1, G_2 \rangle
+\end{eqnarray}
+
+Dabei wird $G = (V,E)$ abgebildet auf $\langle G_1, G_2 \rangle$ mit
+$V_1 = \{w_1,w_2, \cdots, w_n\}$ mit $n=|V|$, $E_1 = \{(w_i, w_{i+1}), i=1\cdots n-1\}$, $V_2 = V$, $E_2 = E$
+
+Die Konstroktion von $G_1$ und das kopieren des Graphfen $G$ ist jeweils in lineare Zeit moeglich.
+
+\paragraph{$G$ hat Hamilton-Pfad $\Rightarrow$ $G_2$ besitzt Teilgraph $G_2'$, sodass $G_1$ isomorph $G_2'$} $ $ 
+
+Da $G$ Ham-Pfad, $\exists v_1 \cdots v_n$, sodass $(v_i, v_i+1) \in E$ fuer $i=1\cdots n-1$
+und $\{v_1, \cdots, v_n\} = V$. 
+
+Es gilt $E_2' = \{(v_i, v_i+1), i = 1 \cdots n-1\} \subseteq E = E_2'$ und $\{v_1, \cdots, v_n\} = V = V_2$,
+also ist $G_2' = (V_2, E_2)$ ist Teilgraph von $G_2$. Durch $f: v_i \mapsto w_i$ fuer $i=1\cdots n$
+ist nun der Isomorphismus definiert, der $G_2'$ auf $G_1$ abbildet.
+
+\paragraph{$G$ hat Hamilton-Pfad $\Leftarrow$ $G_2$ besitzt Teilgraph $G_2'$, sodass $G_1$ isomorph $G_2'$} $ $ 
+
+$G_1 = (V_1, \{(w_i, w_i+1) \})$ ist Isomorph zu $G_2'$. Also exisiterit $v_1 \cdots v_n \in V_2'$,
+    mit $(v_i, v_i+1) \in E_2'$. da $|V_1| = n$ muss auch $|V_2'| = n = |V_2|$, also ist $V_2' = V_2$.
+    Somit ist $v_1 \cdots v_n$ ein Hamliton-Pfad in $V_2$. Da $G_2 = G$ ist dieser Pfad somit auch Hamilton-Pfad 
+    in $G$.
+
+\section*{Aufgabe 2}
+\paragraph{a) Subset-Sum $\leq_p$ Partition} $ $
+\begin{eqnarray}
+f &:& \N^* \times \N \to \N^*\\
+  & & \langle m_1,k \cdots, m_n, k \rangle \mapsto n_1, \cdots, n_n, n_{n+1}
+\end{eqnarray}
+Sei $m = \sum_{i= 1\ldots n} m_i$ und $s = m-2k$. 
+$n_i = m_i$ fuer $i=1\cdots n$, $n_{n+1} = s$
+
+Da die Berechnung der Summe in linearer Zeit moeglich ist, ist $f$ auch in linearer Zeit berechenbar.
+
+
+\paragraph{Subset-Sum $\Rightarrow$ Partition} $ $
+
+Sei $I$ die Indexmenge fuer die gilt, dass $\sum_{i\in I} m_i = k$,
+sei $I' = I \cup \{n+1\}$.
+
+Es gilt $\sum_{i\in I} n_i = k + s = k+m-2k = m-k$ und $\sum_{i\in \bar{I}} n_i = \sum_{i=1}^{n} i - \sum_{i\in I} = m-k$
+
+Also kann ein Partition mit gleicher Summe gefunden werden.
+
+
+\paragraph{Subset-Sum $\Leftarrow$ Partition} $ $
+
+Sei $I$ die Indexmenge, sodass $\sum_{i\in I} n_i = \sum_{i\in\bar{I}} n_i$.
+Obda ist $n+1 \in I$.
+
+Es gilt 
+\begin{eqnarray}
+\sum_{i\in \bar{I}} n_i &=& \sum_{i\in I} n_i \\
+\sum_{i\in \bar{I}} n_i &=&  s + \sum_{i\in I \setminus \{n+1\}} n_i \\
+ s &=& \sum_{i\in \bar{I}} n_i - \sum_{i \in I \setminus \{n+1\}} n_i \\
+   &=& \sum_{i\in \bar{I}} n_i + \sum_{i \in I \setminus \{n+1\}} n_i - 2 \cdot  \sum_{i \in I \setminus \{n+1\}} n_i \\
+   &=& \sum_{i=1}^n n_i - 2 \cdot \sum_{i\in I \setminus \{n+1\}} n_i \\ 
+ m-2k &=& m - 2 \cdot \sum_{i\in I \setminus \{n+1\}} n_i \\ 
+ k &=& \sum_{i\in I\setminus \{n+1\}} i \\
+\end{eqnarray}
+
+Also erfuellt $\bar{I}$ das Subset-Sum Problem fuer $M,k$
+
+
+\paragraph{a) Partition $\leq_p$ Zollstock} $ $
+\begin{eqnarray}
+f &:& \N^* \to \N^* \\
+  & & a_1,\cdots,a_n \mapsto l_1,\cdots,l_m,l
+\end{eqnarray}
+wobei $l_1 = A$, $l_2 = \frac{A}{2}$, $l_3 = a_1$, $l_4 = a_2$, \ldots, $l_{n+2} = a_n$,
+      $l_{n+3} = \frac{A}{2}, l_{n+4} = A$, mit $A = \sum_{i=1}^n a_i$
+
+\paragraph{Partition $\Rightarrow$ Zollstock} $ $
+
+
+
+\paragraph{Partition $\Leftarrow$ Zollstock} $ $
+
+\section*{Aufgabe 3}
+
+\end{document}
