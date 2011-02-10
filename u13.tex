@@ -1,0 +1,109 @@
+\include{headerueb}
+\include{header}
+\include{info}
+
+
+\newcommand{\nr}{13}
+
+\begin{document}
+\section*{Aufgabe 1}
+
+\section*{Aufgabe 2}
+\paragraph{a) 0-1-LP} $ $
+
+Sei $n$ die Anzahl der Variablen und $m$ die Anzahl der Nebenbedingungen und
+bezeichne $x_i$ ($i=1,\ldots,n$) die Variablen des Programms,
+$f(x) = a_1 x_1 + a_2 x_2 + \cdots + a_n x_n$ die zu minimirende Funktion
+$N_j: a_{j,1} x_{i_{j,1}} + a_{j,2} x_{i_{j,2}} + \cdots + a_{j,n_j} x_{i_{j,n_j}} \geq B_j$
+bezeichne die Nebenbedinung $j$.
+
+Das Progamm wird durch $a_1\#\cdots\#a_n\#\#N_1\#\#N_2\#\#\cdots\#\#N_3$ codiert,
+wobei $N_j$ durch $a_{j,1}\#i_{j,1}\#\cdots\#a_{j,n_j}\#i_{j,n_j}$ codiert wird und 
+alle Variablen in Binaerdarstellung codert werden.
+
+Bezeichen $l$ die Laenge dieser Codierung. 
+Es gilt $l = \Omega(n + m + \log(\sum a_i + \sum a_{j,i}))$
+
+\begin{description}
+\item[0-1-LP $\in NP$]
+
+\begin{eqnarray}
+L &=& \{ \langle LP \rangle: \text{ das lineare Program $LP$ ist erfuellbar} \}  \\
+x &=& b_1, b_2, \cdots, b_n \text{, $b_i \in \{0,1\}$ eine belegung fuer $x_i$}
+\end{eqnarray}
+
+Fuer die Codierung von $x$ reicht fuer jede Variable in $LP$ ein Bit aus. Also 
+ist $|x| = O(n)$
+
+\begin{alltt}
+algorithm \(A(LP,x)\)
+    for \(j = 1 \cdots m\)
+       \(b=0 \)
+       for \(k = 1 \cdots n_j\)
+          if \(b\sb{i\sb{j,k}} = 1\)
+             \(b = += a\sb{j,i\sb{k}}\)
+       if \(b > B\sb{j}\)
+          return false
+    return true
+\end{alltt}
+
+Durch den Schleifendurchlaefe wurd auf jedes der $a_{j,i_{k}}$ nur einmal zugegriffen
+und diese zu auf $b$ summiert. Da diese Zahlen auch in der Eingable codiert sind,
+kann dies Summe sowie der weitere Vergleich mit $B_j$ in $O(l^2)$ berechnet werden.
+
+Also liegt 0-1-LP in NP
+
+
+\item[0-1-LP ist NP-schwer:] Reduktion von 3-SAT auf 0-1-LP
+\begin{eqnarray}
+f &:& \{\text{3-CNF}\} \to \{\text{0-1-LP}\} \\
+  && (I,B) \mapsto LP
+\end{eqnarray}
+Dabei wird durch $I$ und $B$ wie folgt die CNF mit $p$ variablen und $o$ Klauseln angegeben:\\
+In $I = i_{11},i_{12},i_{13}, i_{21}, i_{22}, i_{23}, \cdots, i_{o1}, i_{o2}, i_{o3}$
+werde die Indizes der Variablen in den Literalen angegebn und in
+und in $B = b_{11},b_{12},b_{13}, b_{21}, b_{22}, b_{23}, \cdots, b_{o1}, b_{o2}, b_{o3}$,
+ob diese negiert sind:
+$i_{ij} \in \{1,\cdots,p\}$ gibt den Index der Variable des $j$. Literals in der $i$. Klausel an,
+$b_{ij} \in \{0,1\}$, ob diese negiert vorkommt (0) oder nicht (1).
+
+Das lineare Programm wird mit $2p$ Variablen konstruiert,
+wobei fuer jeden Variable $y_i$ der CNF eine Variable fuer $x_i$ und eine Variable $\bar{x}_i$
+eingefuert wird, die $y_i$ bzw $\lnot y_i$ entsprechen.
+
+Aus den Klauseln werden Nebenbedinungen der Form $-\dot x_{i_1} - \dot x_{i_2} - \dot x_{i_3}\leq -1$ konstroiert,
+wobei $i_1, i_2, i_3$ den Indizes der Variablen in der Klausel entsprechen und
+$\dot x$ entsprechend der $b_{ij}$ in der Klausel entweder die Variable $x$ oder die Variable $\bar x$ ist.
+
+Zusaetzlich muss fuer jede der Variablen der CNF eine Nebenbedinung eingefuehrt werden,
+die Verhindert dass $x_i$ und $\bar x_i$ die gleiche Belegung bekommen:
+$x_i + \bar x_i = 1$. Diese Bedinung kann durch zwei Bedinungen in Standartnormalform umgeformt werden.
+
+Dadurch koennen die Nebenbedinungen nur erfuellt werden, wenn auch alle Klauseln in CNF erfuellbar sind:
+
+<+Laufzeit+>
+
+\item[CNF erfuellbar $\Rightarrow$ LP erfullbar] $ $
+
+Sei $y_i$ mit $i=1 \cdots p$ die Belegung der Variablen in CNF,
+dann ist $x_i = y_i$, $\bar x_i = \lnot y_i$ auch ein gueltige Belegung fuer $LP$.
+
+Fuer die den Klauseln entsprechenden Nebenbedinungen muss mindestens eine
+der Variablen $\dot x = 1$ sein, da ansonsten die Klausel nicht erfullt waere.
+
+Durch die gewahlte Belegung  $x_i = y_i$, $\bar x_i = \lnot y_i$ ist auch stets gewahert,
+das entweder $x_i$ oder $\bar x_i$ 1, die andere 0 ist, sodass derene Summe stest $1$ ergibt.
+Also sind auch die restlichen Nebenbedinungen erfuellt.
+
+\item[CNF erfuellbar $\Leftarrow$ LP erfuellbar] $ $
+Sind die Nebenbedingungen in $LP$ erfuellbar, so muss auch mindestens ein Literal in jeder 
+Klausel erfuellbar sein, da sonst in der Bedinung $-\dot x_{i_1} - \dot x_{i_2} - \dot x_{i_3}\geq -1$
+ist.
+
+\qed
+
+\end{description}
+
+\section*{Aufgabe 3}
+
+\end{document}

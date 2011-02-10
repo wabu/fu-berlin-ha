@@ -107,20 +107,56 @@ Es gilt
 Also erfuellt $\bar{I}$ das Subset-Sum Problem fuer $M,k$
 
 
-\paragraph{a) Partition $\leq_p$ Zollstock} $ $
+
+
 \begin{eqnarray}
 f &:& \N^* \to \N^* \\
-  & & a_1,\cdots,a_n \mapsto l_1,\cdots,l_m,l
+  & & a_1,\cdots,a_n \mapsto \bar{l_1}, \bar{l_2}, l_1, \cdots,l_n, \dot{l_2}, \dot{l_1}, l
 \end{eqnarray}
-wobei $l_1 = A$, $l_2 = \frac{A}{2}$, $l_3 = a_1$, $l_4 = a_2$, \ldots, $l_{n+2} = a_n$,
-      $l_{n+3} = \frac{A}{2}, l_{n+4} = A$, mit $A = \sum_{i=1}^n a_i$
+wobei $\bar{l_1} = \dot{l_1} = A$, $\bar{l_2} = \dot{l_2} = \frac{A}{2}$, $l_i = a_i$ fuer $i=1 \cdots n$,
+      $l=A$
 
 \paragraph{Partition $\Rightarrow$ Zollstock} $ $
 
+Sei $I$ die Indexmenge, sodass $\sum_{i\in I} a_i = \sum_{i\in\bar{I}} a_i$.
 
+Es wird $\bar{l_1}$ und $\dot{l_1}$ nach rechts, $\bar{l_2}$ und $\dot{l_2}$ nach links gefaltet.
+Nun kann der Zollstock so gefaltet werden,
+dass alle Elemente in $I$ nach links, alle Elemente in $\bar{I}$ nach rechts gefaltet werden.
+
+Anfang und Ende des inneren Teils $l_1 \cdots l_n$ faellt auf den gleichen punkt, 
+da $\sum_{i\in I} a_i = \sum_{i\in\bar{I}} a_i$.
+
+Des weitern gilt dass $\sum_{i\in I} a_1 = \frac{A}{2} = \sum_{i\in \bar{I}} a_i$, 
+also kann der inner Teil hoechstens eine Laenge von $\frac{A}{2}$ besitzen.
+
+Wegen dem erste Teil $\bar{l_1}$ muss der Zollstock eine Laenge $\geq A$ haben.
+Da $\bar{l_2}$ bei $\frac{A}{2}$ aufhoert, und der Innere teil von $\frac{A}{2}$ begrenzt ist,
+ragt dieser Teil auch nicht ueber $\bar{l_1}$ herraus. 
+$\dot{l_2}$ setzt wieder bei $\frac{A}{2}$ an, sodass sich der letzte Teil ueber den Anfang legt.
+
+Also kann der Zollstock zur Laenge $A$ gefaltet werden.
 
 \paragraph{Partition $\Leftarrow$ Zollstock} $ $
 
+Sei $I$ die Indexmenge der inneren Elemente, die nach rechts gefaltet ist,
+    $\bar{I}$ die Indexmenge der inneren Elemente, die nach links gefaltet ist,
+
+Obda ist $\bar{l_1}$ nach rechts gefaltet. $\bar{l_2}$ muss nach links gefaltet sein,
+da dieses sonst den Zollstock ueber $A$ hinaus verlaengern wuerde.
+
+$\dot{l_2}$ muss wieder bei $\frac{A}{2}$ ansetzen, damit dessen Ende bei $A$ oder $0$ liegen kann.
+Ansonsten koennte das letzte Element $\dot{l_1}$ nicht so angesetzt werden, dass es nicht ueber $A$ hinausragt.
+
+Also liegt Anfang und Ende des innern Teils auf $\frac{A}{2}$. Daraus folgt, dass
+$\sum_{i\in I} l_i = \sum_{i\in \bar{I}} l_i$.
+
+Also ist fuer die Indexmenge $I$ Partition erfuellt.
+
+
+
+
 \section*{Aufgabe 3}
+
 
 \end{document}
