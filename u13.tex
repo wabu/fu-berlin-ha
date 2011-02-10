@@ -125,5 +125,86 @@ Eingabe ist.
 Nebenbedingungen <+ $x^2 - x = 0$ +>
 
 \section*{Aufgabe 3}
+\begin{description}
+\item[ungerichteter HAM $\in$ NP]
+
+\begin{eqnarray}
+L &=& \{ \langle G \rangle: \text{ungerichteter Graph $G$ hat HAM-Kreis} \}  \\
+x &=& v_1,v_2,\cdots,v_n
+\end{eqnarray}
+
+\begin{alltt}
+algorithm \(A(G,x)\)
+    if \(x\) besteht nicht aus \(|V|\) Knoten
+        return false
+    // Ueberpruefe ob Knoten nur einfach in \(x\) 
+    for \(i = 1 \cdots n\)
+        for \(j = 1 \cdots n\)
+            if \(i\neq j \land v_i = v_j\)
+                return false
+    // Ueberpruefe ob Kanten aus zuegen im Graph
+    for \(i = 1 \cdots n-1\)
+        if \((v\sb{i},v\sb{i+1}) \notin E\)
+            return false
+    if \((v\sb{n},v\sb{1}) \notin E\)
+        return false
+
+    return true
+\end{alltt}
+
+Die Scheifendurchlauefe brauche jeweils nur Durchlauefe $O(|V|^2)$,
+also ist $A$ polynomiell.
+
+
+\item[ungerichteter HAM NP-shwer] Reduktion von gerichtetem HAM auf ungerichteten
+
+\begin{eqnarray}
+f &:& \{\text{gerichtete Graphen}\} \to \{\text{ungerichtete Graphen}\} \\
+  && G=(V,E) \mapsto G'=(V',E')
+\end{eqnarray}
+
+Wobei $V' = V\times \{0,1,2\}$ und 
+$E' = \{ ( (v,0), (v,1) ) | v \in V \} \cup
+      \{ ( (v,1), (v,2) ) | v \in V \} \cup 
+      \{ ( (v,2), (w,0) ) | (v,w) \in E \}$
+
+Dies kann in linearer Zeit konstroiert werden: Fuer $V'$ und die ersten beiden Teilmenge aus $E'$
+muessen nur die Knoten vervielfaeltigt werden, fuer die letzte teilemenge der Kanten, muss 
+nur jedes Element aus $E$ veraendert werden.
+
+\item[gerichteter HAM-Kreis in $G$ $\Rightarrow$ ungerichteter HAM-Kreis in $G'$] $ $
+
+Sei $K = v_1 \to v_2 \to \cdots \to v_n$ der HAM-Kreis in $G$.
+Dann ist $K' = (v_1,0) \to (v_1,1) \to (v_1,2) \to (v_2, 0) \to (v_2, 1) \to \cdots \to (v_n,2)$
+HAM-Kreis in $G'$:
+
+Da $K$ alle Knoten in $G$ genau einmal enthaelt und in $K'$ fuer jeden Knoten $v$ $(v,0)$, $(v,1)$ und $(v,2)$ enthalten sind,
+wird auch in $K'$ jeder Knoten genau einmal Besucht.
+
+Da in $G$ die Kanten $v_i \to v_{i+1}$ und $v_n \to v_0$ existieren,
+   sind nach Konstruktion auch die Kanten $(v_i,0) \to (v_i,1) \to (v_i,2) \to (v_{i+1},0)$ und
+   $(v_n,0) \to (v_n,1) \to (v_n,2) \to (v_1,0)$ enthalten.
+   \qed
+
+
+\item[ungerichteter HAM-Kreis in $G'$ $\Rightarrow$ gerichteter HAM-Kreis in $G$]
+
+Obda faengt der Kreis bei einem Knoten $(v_1,0)$ an. Da der Kreis $(v_1,1)$ enthalten muss,
+und $(v_1,0)$ nur einmal enthalten sein darf, muss die Kante $((v_1,0),(v_1,1)$ auf dem Kreis
+vor oder hinter $(v_1,0)$ liegen. Da der Kreis ungerichet ist, flogt obda $(v_1,1)$ in dem Kreis auf $(v_1,0)$.
+Darauf muss nun $(v_1,2)$ folgen, da dies der einzige Weg von $(v_1,1)$ zu einem unbesuchten Knoten ist.
+Nach Konstruktion gehen von dem Knoten $(v_1,2)$ nur Kanten zu Knoten der vorm $(\cdot,0)$. 
+
+Bezeichne $(v_2,0)$ den Knoten, der auf dem HAM-Kreis auf $(v_1,2)$ folgt. Fuer diesen Knoten
+ergeben sicht wie fuer $(v_0,0)$, dass $(v_1,1)$ und $(v_1,2)$ folgen, gefolgt von dem naechsten 
+knoten $(v_2,0)$. \ldots
+
+Also muss der HAM-Kreis folgende Form haben: 
+$(v_1,0) \to (v_1,1) \to (v_1,2) \to (v_2,0) \to (v_2,1) \to \cdots \to (v_n,0) \to (v_n,1) \to (v_n,2)$
+
+Da $(v,2) \to (w,0)$ nur aus einer Kante $(v,w)$ in $V$ entstanden sein kann,
+ist $v_1 \to v_2 \to \cdots \to v_n$ ein HAM-Kreis in $G$.
+
+\end{description}
 
 \end{document}
