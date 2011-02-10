@@ -107,12 +107,44 @@ ist.
 \end{description}
 
 
-
-
-
 \paragraph{b) ILP ist NP-schwer} Reduktion von 0-1-LP auf ILP
+\begin{eqnarray}
+f &:& \{\text{0-1-LP}\} \to \{\text{ILP}\} \\
+  && LP \mapsto LP'
+\end{eqnarray}
 
-<+ Nur neue Nebenbedingungen einfuehren: $-x \leq 0$ und $x \leq 1$ \ldots +>
+Wobei $LP'$ $LP$ entahelt, nur fuer jeden Variable $x$ in $LP$
+zwei weiteren Nebenbedingungne einfuehrt, die dafuer sorgen,
+dass $x \in \{0,1\}$:
+Fuer jede Variable $x$ werden die Nebenbedingungen $-x \leq 0$ und $x \leq 1$
+hinzugefuegt.
+
+Die ist in linearer Zeit bezueglich der Anzahl der Variablen moeglich.
+\begin{description}
+\item[$LP$ erfuellbar $\Rightarrow$ $LP'$ erfuellbar]
+Falls $LP$ erfullbar ist, ist auch die gleiche Loesung eine gueltige Loesung fuer $LP'$,
+da die neuen Nebenbedingungen durch Variablen mit Belgung in $\{0,1\}$ immer erfuellt sind
+und alle anderen Nebenbedingugen auch Teil von $LP$ sind.
+
+\item[$LP'$ erfuellbar $\Rightarrow$ $LP$ erfuellbar] $ $
+
+\begin{enumerate}
+\item Die Belegungen koennen nur Werte aus $\{0,1\}$ enthalten:
+
+    Falls eine Belegung fuer $x$ nicht aus $\{0,1\}$ ist,
+    ist eine der Bedingungen $-x \leq 0$ und $x \leq 1$ nicht erfullt,
+    also kann dies keine gueltige Belegung sein.
+
+    Desshalb kann die Belegung von $LP'$ auch fuer $LP$ verwendet werden.
+
+\item Die Belegnung erfullt auch $LP$
+
+    Da alle Nebenbedingugne von $LP$ auch in $LP'$ enthalten sind,
+    muessen diese von der Belegung erfullt werden, also wird $LP$ auch von der Belegung erfuellt.
+
+\end{enumerate}
+
+\end{description}
 
 \paragraph{c) vollstanidg?} 
 Der Beweis fuer fuer die Vollstaendigkeit ist nicht so einfach, 
@@ -123,6 +155,41 @@ Eingabe ist.
 \paragraph{d) QNP ist NP-schwer} Redukjtion von 0-1-LP auf QLP
 
 Nebenbedingungen <+ $x^2 - x = 0$ +>
+\begin{eqnarray}
+f &:& \{\text{0-1-LP}\} \to \{\text{QLP}\} \\
+  && LP \mapsto LP'
+\end{eqnarray}
+
+Wobei $LP'$ $LP$ entahelt, nur fuer jeden Variable $x$ in $LP$
+eine weiteren Nebenbedingungne einfuehrt: $x^2 - x = 0$
+
+Die ist in linearer Zeit bezueglich der Anzahl der Variablen moeglich.
+
+\begin{description}
+\item[$LP$ erfuellbar $\Rightarrow$ $LP'$ erfuellbar]
+Falls $LP$ erfullbar ist, ist auch die gleiche Loesung eine gueltige Loesung fuer $LP'$,
+da die neuen Nebenbedingungen durch Variablen mit Belgung in $\{0,1\}$ immer erfuellt sind
+und alle anderen Nebenbedingugen auch Teil von $LP$ sind.
+
+\item[$LP'$ erfuellbar $\Rightarrow$ $LP$ erfuellbar] $ $
+
+\begin{enumerate}
+\item Die Belegungen koennen nur Werte aus $\{0,1\}$ enthalten:
+
+    Falls eine Belegung fuer $x$ nicht aus $\{0,1\}$ ist,
+    ist eine der Bedingungen $x^2 - x = 0$ nicht erfullt, 
+    da diese Gelichung nur die Loesung $x=0$ oder $x=1$ besitzt.
+
+    Desshalb kann die Belegung von $LP'$ auch fuer $LP$ verwendet werden.
+
+\item Die Belegnung erfullt auch $LP$
+
+    Da alle Nebenbedingugne von $LP$ auch in $LP'$ enthalten sind,
+    muessen diese von der Belegung erfullt werden, also wird $LP$ auch von der Belegung erfuellt.
+
+\end{enumerate}
+\end{description}
+
 
 \section*{Aufgabe 3}
 \begin{description}
