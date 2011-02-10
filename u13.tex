@@ -81,7 +81,9 @@ $x_i + \bar x_i = 1$. Diese Bedinung kann durch zwei Bedinungen in Standartnorma
 
 Dadurch koennen die Nebenbedinungen nur erfuellt werden, wenn auch alle Klauseln in CNF erfuellbar sind:
 
-<+Laufzeit+>
+Die Nebenbedingungen fuer jede Variable koennen insgesamt in $O(p)$ konstruiert werden.
+Die Nebenbedingungen pro Klausel sind nur ein Umformung der CNF-Codierung und kann
+auch in lineare Zeit berechnet werden.
 
 \item[CNF erfuellbar $\Rightarrow$ LP erfullbar] $ $
 
@@ -103,6 +105,24 @@ ist.
 \qed
 
 \end{description}
+
+
+
+
+
+\paragraph{b) ILP ist NP-schwer} Reduktion von 0-1-LP auf ILP
+
+<+ Nur neue Nebenbedingungen einfuehren: $-x \leq 0$ und $x \leq 1$ \ldots +>
+
+\paragraph{c) vollstanidg?} 
+Der Beweis fuer fuer die Vollstaendigkeit ist nicht so einfach, 
+da der Zeuge, also die Belegung der Variablen nun auch grosse Zahlen enthalte
+kann, sodass die Lanege des Zeuges nicht polynomiell zu der Laenge der 
+Eingabe ist.
+
+\paragraph{d) QNP ist NP-schwer} Redukjtion von 0-1-LP auf QLP
+
+Nebenbedingungen <+ $x^2 - x = 0$ +>
 
 \section*{Aufgabe 3}
 
